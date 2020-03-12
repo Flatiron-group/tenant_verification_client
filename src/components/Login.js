@@ -2,10 +2,20 @@ import React, { useState } from 'react'
 
 function Login(){
   const [ username, setUsername ] = useState("")
-  const [ password, usePassword ] = useState("")
+  const [ password, setPassword ] = useState("")
 
   const handleChange = e => {
-    console.log("meep")
+    switch(e.target.name) {
+      case "username":
+        setUsername(e.target.value)
+        break
+      case "password":
+        setPassword(e.target.value)
+        break
+      default:
+        setUsername(username)
+        setPassword(password)
+    }
   }
 
   return(
