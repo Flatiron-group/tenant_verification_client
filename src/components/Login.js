@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 
+
+const URL = "http://localhost:3001"
+
 function Login(){
   const [ username, setUsername ] = useState("")
   const [ password, setPassword ] = useState("")
@@ -18,9 +21,36 @@ function Login(){
     }
   }
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    loggingIn()
+  }
+
+  const clearForm = () => {
+    setUsername("")
+    setPassword("")
+  }
+
+  async function loggingIn(){
+    try {
+      let response = fetch(`${URL}/login`)
+      let data = response.json()
+
+      if (data.error) {
+        alert("Incorrect username or password.")
+        clearForm()
+      } else {
+        // NEED TO CHANGE THE ALERT TO A USER ACTION FROM REDUX
+        alert("Successfully logged in!")
+      }
+    } catch(e) {
+      alert("The following error occured: ", e)
+    }
+  }
+
   return(
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Username</label>
         <br />
         <input
